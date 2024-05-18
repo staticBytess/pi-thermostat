@@ -4,7 +4,7 @@ Raspberry Pi Pico powered Thermostat. Currently using LEDs to display status wit
 
 Components:
 - 1x Raspberry Pi Pico
-- 1x DHT/AM2302
+- 1x DHT22/AM2302
 - 3x LEDs
 - 3x 220 Ohm Resistors
 
