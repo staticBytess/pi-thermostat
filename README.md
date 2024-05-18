@@ -1,6 +1,6 @@
 Raspberry Pi Pico powered Thermostat. Currently using LEDs to display status with plans to include a display as soon as it arrives in the mail.
 
-<img src="images/overhead.jpg" width="550">
+<img src="images/overhead.png" width="550">
 
 Components:
 - 1x Raspberry Pi Pico
