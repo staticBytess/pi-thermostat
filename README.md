@@ -1,11 +1,12 @@
-Raspberry Pi Pico powered Thermostat. Currently using LEDs to display status with plans to include a display as soon as it arrives in the mail.
+<h1>Raspberry Pi Pico powered Thermostat.</h1> 
+<p>Pico grabs temperature and humidity data from the DHT22 sensor, and outputs the results to an OLED display.</p>
 
-<img src="images/overhead.png" width="550">
+<img src="images/OLED_overhead.jpg" width="850">
 
 Components:
 - 1x Raspberry Pi Pico
 - 1x DHT22/AM2302
-- 3x LEDs
-- 3x 220 Ohm Resistors
+- 1x SPI OLED 128x64 Display
 
-
+<h2>Previous build without display</h2>
+<img src="images/overhead.png" width="450">
