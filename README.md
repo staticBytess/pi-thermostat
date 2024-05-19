@@ -1,4 +1,4 @@
-<h1>Raspberry Pi Pico powered Thermostat.</h1> 
+<h1>Raspberry Pi Pico powered Thermostat</h1> 
 <p>Pico grabs temperature and humidity data from the DHT22 sensor, and outputs the results to an OLED display.</p>
 
 <img src="images/OLED_overhead.jpg" width="850">
