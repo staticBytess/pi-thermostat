@@ -63,7 +63,7 @@ def getOutdoorTemp():
         if 'data' in data and len(data['data']) > 0:
             temp = data['data'][0]['temp']
             temp = f"{temp *9/5 + 32: .2f}"
-             print("The temperature is: " + temp + "°C")
+            print("The temperature is: " + temp + "°C")
             return temp
         
         else:
