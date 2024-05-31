@@ -27,7 +27,7 @@
 </ul>
 
 <h2>Previous builds</h2>
-<h3>Pico + LCD </h3>
+<h3>Pico + LCD Touchscreen </h3>
 <p>Issue: Pico does not have enough memory for API calls.</p>
 <img src="images/pico_LCD.jpg" width="300" >
 
