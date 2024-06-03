@@ -1,15 +1,14 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 #import chardet
-import os
 import sys 
 import time
 from datetime import datetime, timedelta
 import logging
+import subprocess
 import requests
 import board
 import adafruit_dht
-import spidev as SPI
 sys.path.append("..")
 from lib import LCD_1inch69,Touch_1inch69
 from PIL import Image,ImageDraw,ImageFont
@@ -17,18 +16,41 @@ from PIL import Image,ImageDraw,ImageFont
 # Set the GPIO pin
 dht_device = adafruit_dht.DHT22(board.D23, use_pulseio=False)
 
-# Raspberry Pi pin configuration:
+# Raspberry Pi BCM pin configuration:
 RST = 27
 DC = 25
 BL = 18
-
 TP_INT = 4
 TP_RST = 17
+
 Mode = 0
 logging.basicConfig(level=logging.DEBUG)
 global Flag
 
-url = "https://api.weatherbit.io/v2.0/current?lat=38.423757&lon=-122.745651&key=7c09ee64d9ba42e9b6bf9b7d802c2bdd"
+def getPublicIp():
+    try:
+        response = requests.get('https://api.ipify.org')
+        if response.status_code == 200:
+            return response.text
+        else:
+            print(f"Error: {response.status_code}")
+            return None
+    except requests.RequestException as e:
+        print(f"Error: {e}")
+        return None
+
+
+def getIpInfo(ipAddress, ipApiKey):
+    url = f"https://api.ipregistry.co/{ipAddress}?key={ipApiKey}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(f"Error: {response.status_code}")
+        return None
+    
+def getLocationInfo(ipInfo):
+    return ipInfo['location']['city'], ipInfo['location']['region']['name'], ipInfo['location']['latitude'],ipInfo['location']['longitude'] 
 
 def getIndoorTemp():
     
@@ -55,7 +77,7 @@ def getIndoorTemp():
     
 def getOutdoorTemp():
 
-    response = requests.get(url)
+    response = requests.get(weatherURL)
   
     if response.status_code == 200:
         data = response.json()  # Use .json() to directly parse JSON response
@@ -63,7 +85,7 @@ def getOutdoorTemp():
         if 'data' in data and len(data['data']) > 0:
             temp = data['data'][0]['temp']
             temp = f"{temp *9/5 + 32: .2f}"
-            print("The temperature is: " + temp + "°C")
+            print("The temperature is: " + temp + "°F")
             return temp
         
         else:
@@ -73,6 +95,12 @@ def getOutdoorTemp():
     else:
         print("Failed to retrieve temperature data. Status code:", response.status_code)
         return None
+    
+def getCpuTemp():
+    result = subprocess.run(['vcgencmd', 'measure_temp'], stdout=subprocess.PIPE)
+    temp_str = result.stdout.decode('utf-8')
+    temp_value = temp_str.split('=')[1].split('\'')[0]
+    return float(temp_value)
 
 touch = Touch_1inch69.Touch_1inch69()
 
@@ -127,6 +155,7 @@ def showTemp():
     
     lastChecked = datetime.now()
     outdoorTemp = getOutdoorTemp()
+    cpuTemp = getCpuTemp()
     
     
     while True:
@@ -173,6 +202,7 @@ def showTemp():
             if timePassed >= timedelta(minutes = apiTimer):
                 outdoorTemp = getOutdoorTemp()
                 lastChecked = datetime.now()
+                
             
             indoorTemp = getIndoorTemp()
             draw.rectangle((0,0,240,300),fill = "BLACK", outline=None, width=1)
@@ -222,21 +252,42 @@ def showTemp():
                     screenOn = True
                 
             draw.rectangle((0,0,240,300),fill = "BLACK", outline=None, width=1)
-            draw.text((10, 30), 'Outdoor ', fill = "WHITE",font=Font)
-            draw.text((13, 60), 'Temperature: ', fill = "WHITE",font=Font)
-            draw.text((15, 105), outdoorTemp + ' °', fill = "WHITE",font=Font)
+            draw.text((10, 30), 'Your Location: ', fill = "WHITE",font=fontMed)
+            draw.text((13, 60), f'{city}', fill = "WHITE",font=fontMed)
             currentTime = datetime.now()
             timePassed = currentTime - lastChecked
             minutesPassed = int(timePassed.total_seconds()/60)
             
-            draw.text((10, 165), 'Last Checked: ', fill = "WHITE",font=fontSmall)
-            draw.text((15, 195), str(minutesPassed) + ' minutes ago', fill = "WHITE",font=fontSmall)
+            cpuTemp = getCpuTemp()
+            draw.text((10, 110), 'CPU Temp: ', fill = "WHITE",font=fontMed)
+            draw.text((30, 145), str(cpuTemp) + "°C", fill = "WHITE",font=fontMed)
             
-            if timePassed >= timedelta(minutes = apiTimer):
-                outdoorTemp = getOutdoorTemp()
-                lastChecked = datetime.now()
             disp.ShowImage(image1)
                
             time.sleep(0.01)
+
+ipAddress = getPublicIp()
+ipApiKey = 'insertIpRegistrykey'
+
+ipInfo = getIpInfo(ipAddress, ipApiKey)
+
+if ipAddress:
+    print(f"Your public IP address is: {ipAddress}")
+else:
+    print("Failed to retrieve public IP address")
+
+if ipInfo:
+    print("IP Info:")
+    print(f"IP Address: {ipInfo['ip']}")
+    print(f"Location: {ipInfo['location']['city']}, {ipInfo['location']['region']['name']}, {ipInfo['location']['country']['name']}")
+    print(f"Latitude: {ipInfo['location']['latitude']}")
+    print(f"Longitude: {ipInfo['location']['longitude']}")
+else:
+    print("Failed to retrieve IP info")
+
+city, state, latitude, longitude = getLocationInfo(ipInfo)
+apiKey = "enterWeatherbitApiKey"
+    
+weatherURL = f"https://api.weatherbit.io/v2.0/current?lat={latitude}&lon={longitude}&key={apiKey}"
 
 showTemp()
