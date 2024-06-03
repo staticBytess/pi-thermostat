@@ -2,19 +2,25 @@
 <p>
   The Raspberry Pi grabs indoor and outdoor temperature data and displays it onto an touch screen LCD. 
   <br>
-  Indoor temmperature is measured using a DHT22 sensor, and the outdoor temperature is taken from 
-  tomorrow.io's weather API.
+  Indoor temmperature is measured using a DHT22 sensor.
+  <br>
+  Outdoor temperature is obtained through <a href="https://www.weatherbit.io/api/weather-current">weatherbit.io's weather API</a>.<br> 
+  Location is determined by using  <a href="https://ipregistry.co">ipregistry's geolocation api</a>, ensuring relevant weather data is shown to the user. 
   <br>
   Still working on the housing.
 </p>
 
-<img src="images/pi3_LCD.jpg" width="750">
+<img src="images/ip_temp_overhead.jpg" width="600">
+<img src="images/cpu_temp.jpg" width="350">
+
 
 <h2>Features</h2>
 <ul>
-  <li>Getures are used to perform certain actions. Swiping down shuts the screen off and a long press will wake the screen. Swiping right displays a second page (WIP)</li>
-  <li>API is called 5 times per hour to ensure limit is not reached</li>
+  <li>Getures are used to perform certain actions. Swiping down shuts the screen off and a long press will wake the screen. Swiping right displays a second page</li>
+  <li>Weather API is called 5 times per hour to ensure limit is not reached</li>
   <li>Room temperature is real-time, updating about once per second.</li>
+  <li>Using IP address ensures weather data is always relevant to the user's location</li>
+  <li>Second screen shows user location and CPU temp.</li>
   <li>Display shuts off after 100 seconds of inactivity</li>
   
 </ul>
