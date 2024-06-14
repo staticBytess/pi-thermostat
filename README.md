@@ -2,7 +2,7 @@
 <p>
   The Raspberry Pi grabs indoor and outdoor temperature data and displays it onto a touch screen LCD. 
   <br>
-  Indoor temmperature is measured using a DHT22 sensor.
+  Indoor temperature  is measured using a DHT22 sensor.
   <br>
   Outdoor temperature is obtained through <a href="https://www.weatherbit.io/api/weather-current">weatherbit.io's weather API</a>.<br> 
   Location is determined by using  <a href="https://ipregistry.co">ipregistry's geolocation api</a>, ensuring relevant weather data is shown to the user. 
