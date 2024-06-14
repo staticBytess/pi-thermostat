@@ -1,6 +1,6 @@
 <h1>Raspberry Pi Thermostat</h1> 
 <p>
-  The Raspberry Pi grabs indoor and outdoor temperature data and displays it onto an touch screen LCD. 
+  The Raspberry Pi grabs indoor and outdoor temperature data and displays it onto a touch screen LCD. 
   <br>
   Indoor temmperature is measured using a DHT22 sensor.
   <br>
