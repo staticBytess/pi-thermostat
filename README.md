@@ -1,6 +1,7 @@
 <h1>Raspberry Pi Thermostat</h1>
+<img src="https://user-images.githubusercontent.com/74038190/212257472-08e52665-c503-4bd9-aa20-f5a4dae769b5.gif" style="width: 30%; display: inline-block;" data-target="animated-image.originalImage">
 
-![]([images/pythonLogo.gif)
+
 
 <p>
   The Raspberry Pi grabs indoor and outdoor temperature data and displays it onto a touch screen LCD. 
