@@ -26,7 +26,7 @@
   <li>Room temperature is real-time, updating about once per second.</li>
   <li>Using IP address ensures weather data is always relevant to the user's location</li>
   <li>Second screen shows user location and CPU temp.</li>
-  <li>Display shuts off after 100 seconds of inactivity</li>
+  <li>Display shuts off after 100 seconds of inactivity and API calls are delayed.</li>
   
 </ul>
 
