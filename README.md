@@ -14,7 +14,7 @@
   Still working on the housing.
 </p>
 
-<img src="images/ip_temp_overhead.jpg" width="600">
+<img src="images/thermo.jpg" width="600">
 <img src="images/cpu_temp.jpg" width="350">
 
 
