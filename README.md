@@ -4,14 +4,15 @@
 
 
 <p>
-  The Raspberry Pi grabs indoor and outdoor temperature data and displays it onto a touch screen LCD. 
+  The Raspberry Pi grabs the indoor and outdoor temperatures, as well as the local air quality, and displays that data onto a touch screen LCD. 
   <br>
   Indoor temperature  is measured using a DHT22 sensor.
   <br>
   Outdoor temperature is obtained through <a href="https://www.weatherbit.io/api/weather-current">weatherbit.io's weather API</a>.<br> 
-  Location is determined by using  <a href="https://ipregistry.co">ipregistry's geolocation api</a>, ensuring relevant weather data is shown to the user. 
+  Location is determined by using  <a href="https://ipregistry.co">ipregistry's geolocation api</a>, ensuring relevant weather data is shown to the user.<br>
+  AQI data is gathered by passing the location to <a href="https://aqicn.org/api/">AQICN's api</a>.
   <br>
-  Still working on the housing.
+  The housing is still a work in progress.
 </p>
 
 <img src="images/thermo.jpg" width="600">
